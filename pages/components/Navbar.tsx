@@ -40,11 +40,11 @@ const Navbar: NextPage = () => {
                 </ul>
                 <div className="flex items-center gap-4 ml-auto text-2xl">
                     <div
-                        className={`group flex gap-2 items-center px-2  ${
-                            searchFocus ? "bg-black border border-white" : ""
+                        className={`group flex gap-2 border items-center px-2  ${
+                            searchFocus ? "bg-black  border-white" : "border-transparent"
                         }`}>
                         <input
-                            className={`py-1 text-sm  bg-transparent focus:outline-none duration-700 ease-in-out ${
+                            className={`py-1 text-sm  bg-transparent outline-none duration-700 ease-in-out ${
                                 searchFocus ? "visible indent-2 bg-black w-[100%]" : "invisible w-[0%]"
                             }`}
                             type="text"
@@ -57,13 +57,13 @@ const Navbar: NextPage = () => {
                     </div>
                     <HiOutlineBell />
                     <span className="text-base">Guest</span>
-                    <div className="inline-flex items-center gap-1">
+                    <div className="h-full w-[3.1rem] inline-flex items-center gap-1">
                         <Image
                             className="rounded"
                             src="/default-green.png"
                             alt="profile picture"
-                            height={25}
-                            width={25}
+                            height={16}
+                            width={16}
                         />
                         <HiChevronDown />
                     </div>

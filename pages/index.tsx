@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import requests from "@/requests/requests";
 import { Movie } from "@/typings";
 import Banner from "./components/Banner";
+import Footer from "./components/Footer";
 
 const space_grotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             <Banner title="Top Rated" movies={topRated} />
             <Banner title="Action" movies={actionMovies} />
             <Banner title="Documentary" movies={documentaries} />
+            <Footer />
         </main>
     );
 };
