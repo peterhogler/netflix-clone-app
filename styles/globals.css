@@ -21,6 +21,14 @@
     img {
         @apply w-full h-full object-cover;
     }
+
+    video {
+        @apply h-full w-full;
+    }
+
+    iframe {
+        @apply h-full w-full;
+    }
 }
 
 @layer components {

@@ -2,6 +2,7 @@ import { Movie } from "@/typings";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiPlay, HiOutlineInformationCircle } from "react-icons/hi";
+import HeroModal from "./HeroModal";
 
 interface HeroProps {
     movies: Movie[];
@@ -21,10 +22,16 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
         setMovie(generateRandomMovie);
     }, [movies]);
 
+    useEffect(() => {
+        document.body.classList.add("overflow-y-hidden");
+    }, [showModal]);
+
     return (
         <>
-            <div className="flex items-center h-[75dvh] relative bg-gradient-to-t from-neutral-900 to-transparent/20">
-                <div className="h-full w-full absolute -z-10 object-cover brightness-50 ">
+            <div
+                className="flex items-center h-[75dvh] relative bg-gradient-to-t from-neutral-900 to-transparent/20
+            ">
+                <div className="h-full w-full absolute -z-10 object-cover brightness-75">
                     <Image
                         className="h-full w-full object-cover "
                         src={`${imageBaseUrl}${movie?.backdrop_path}`}
@@ -54,11 +61,7 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
                     </div>
                 </div>
             </div>
-            {showModal ? (
-                <div className="z-20 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 h-[92dvh] w-[50dvw] bg-black">
-                    Show modal
-                </div>
-            ) : null}
+            {showModal ? <HeroModal movie={movie} /> : null}
         </>
     );
 };
