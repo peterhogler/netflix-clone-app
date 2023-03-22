@@ -18,13 +18,13 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
         return randomMovie;
     };
 
+    const handleModalState = () => {
+        setShowModal(!showModal);
+    };
+
     useEffect(() => {
         setMovie(generateRandomMovie);
     }, [movies]);
-
-    useEffect(() => {
-        document.body.classList.add("overflow-y-hidden");
-    }, [showModal]);
 
     return (
         <>
@@ -54,14 +54,14 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
                             <HiPlay size={30} />
                             Play
                         </button>
-                        <button className="button-outline" onClick={() => setShowModal(!showModal)}>
+                        <button className="button-outline" onClick={handleModalState}>
                             <HiOutlineInformationCircle size={30} />
                             View Details
                         </button>
                     </div>
                 </div>
             </div>
-            {showModal ? <HeroModal movie={movie} /> : null}
+            {showModal ? <HeroModal movie={movie} onModalClose={handleModalState} /> : null}
         </>
     );
 };

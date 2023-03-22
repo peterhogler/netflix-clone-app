@@ -24,7 +24,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     documentaries,
 }) => {
     return (
-        <main className={space_grotesk.className}>
+        <main className={space_grotesk.className} id="main">
             <Navbar />
             <Hero movies={netflixOriginals} />
             <Banner title="Trending Now" movies={trendingNow} />
