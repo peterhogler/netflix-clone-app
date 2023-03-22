@@ -35,8 +35,8 @@ const Banner: React.FC<BannerProps> = ({ title, movies }) => {
     };
 
     return (
-        <div className="px-20">
-            <div className="group flex items-center gap-8 text-4xl font-bold py-5">
+        <div className="px-5 md:px-20 mb-7 md:mb-14">
+            <div className="group flex items-center gap-8 text-xl md:text-4xl font-bold py-5">
                 {title}
                 <span className="text-base underline underline-offset-4 opacity-0 duration-300 ease group-hover:opacity-100">
                     Explore more
@@ -54,14 +54,14 @@ const Banner: React.FC<BannerProps> = ({ title, movies }) => {
                     </button>
                 </div>
                 <div
-                    className="flex gap-4 mb-20 whitespace-nowrap overflow-auto relative scrollbar-hide"
+                    className="flex gap-4 whitespace-nowrap overflow-auto relative scrollbar-hide"
                     ref={containerRef}>
                     {movies.map((movie) => {
                         return (
                             <>
                                 <Image
                                     key={movie.id}
-                                    className="w-max h-[350px] rounded"
+                                    className="w-max h-[250px] md:h-[350px] rounded"
                                     src={`${imageBaseUrl}${movie?.poster_path}`}
                                     alt={movie?.original_title as string}
                                     width={400}

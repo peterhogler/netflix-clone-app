@@ -25,11 +25,11 @@ const Navbar: NextPage = () => {
     return (
         <header className={`fixed w-full z-20 `}>
             <nav
-                className={`flex items-center py-4 px-20 duration-700 ease ${
+                className={`flex items-center py-4 px-5 md:px-20 duration-700 ease gap-4 ${
                     isScrolled ? "bg-black/95" : "bg-transparent"
                 }`}>
                 <div>
-                    <Image src="/logo.png" alt="netflix logo" height={85} width={85} />
+                    <Image src="/logo.png" alt="netflix logo" height={80} width={80} />
                 </div>
                 <ul className="hidden xl:flex gap-6 ml-12 ">
                     <li>Home</li>
@@ -55,8 +55,10 @@ const Navbar: NextPage = () => {
                             onClick={() => setSearchFocus(!searchFocus)}
                         />
                     </div>
-                    <HiOutlineBell />
-                    <span className="text-base">Guest</span>
+                    <div className="hidden md:inline-flex gap-2">
+                        <HiOutlineBell />
+                        <span className="text-base">Peter's Netflix</span>
+                    </div>
                     <div className="h-full w-[3.1rem] inline-flex items-center gap-1">
                         <Image
                             className="rounded"

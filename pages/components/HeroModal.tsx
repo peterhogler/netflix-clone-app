@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { Movie } from "@/typings";
 import ReactPlayer from "react-player";
-import { HiOutlineThumbUp, HiPlay, HiPlus, HiX } from "react-icons/hi";
+import {
+    HiOutlineThumbUp,
+    HiOutlineVolumeOff,
+    HiOutlineVolumeUp,
+    HiPlay,
+    HiPlus,
+    HiX,
+} from "react-icons/hi";
 
 interface HeroModalProps {
     movie: Movie | null;
@@ -11,6 +18,9 @@ interface HeroModalProps {
 const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
     const [videoUrl, setVideoUrl] = useState<string>("");
     const [mediaPlayingState, setMediaPlayingState] = useState<boolean>(true);
+    const [mediaVolumeMuted, setMediaVolumeMuted] = useState<boolean>(true);
+
+    console.log(movie);
     useEffect(() => {
         const getTrailerUrl = async () => {
             try {
@@ -30,20 +40,34 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
         getTrailerUrl();
     }, [movie]);
 
+    useEffect(() => {
+        const main = document.querySelector("#main");
+        main?.classList.add("overflow-hidden");
+
+        return () => {
+            main?.classList.remove("overflow-hidden");
+        };
+    }, []);
+
     const handlePlayingState = () => {
         setMediaPlayingState(!mediaPlayingState);
     };
+
+    const handleMediaMute = () => {
+        setMediaVolumeMuted(!mediaVolumeMuted);
+    };
+
     return (
         <div>
             <div className="z-20 grid place-items-start fixed inset-0 bg-black/50">
-                <div className="h-full w-[60vw] m-auto border-t-rounded">
-                    <div className="h-[65%] relative mt-14">
+                <div className="h-[100dvh] md:w-[60vw] m-auto rounded overflow-auto ">
+                    <div className="h-[65%] relative md:mt-14">
                         <ReactPlayer
                             url={videoUrl}
                             width="100%"
                             height="100%"
                             playing={mediaPlayingState}
-                            muted
+                            muted={mediaVolumeMuted}
                         />
                         <div className="absolute top-5 right-5">
                             <button
@@ -52,7 +76,7 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                                 <HiX size={26} />
                             </button>
                         </div>
-                        <div className="flex items-center gap-4 absolute bottom-10 left-14 text-xl">
+                        <div className="flex items-center gap-4 absolute bottom-10 left-5 md:left-14 text-xl">
                             <button className="button-primary" onClick={handlePlayingState}>
                                 <HiPlay size={30} />
                                 {mediaPlayingState ? "Pause" : "Play Now"}
@@ -64,6 +88,46 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                                 <button className="grid place-items-center bg-neutral-800 self-stretch h-10 w-10 rounded-full ring-2 ring-neutral-300">
                                     <HiOutlineThumbUp size={27} />
                                 </button>
+                            </div>
+                        </div>
+                        <div className="absolute right-5 md:right-14 bottom-10">
+                            <button
+                                className="grid place-items-center bg-neutral-900 self-stretch h-10 w-10 rounded-full ring-2 ring-neutral-400 text-neutral-400"
+                                onClick={handleMediaMute}>
+                                {mediaVolumeMuted ? (
+                                    <HiOutlineVolumeOff size={27} />
+                                ) : (
+                                    <HiOutlineVolumeUp size={27} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="h-full md:h-max bg-gradient-to-b from-black to-neutral-900">
+                        <div className="px-5 md:mx-14">
+                            <h1 className="text-4xl font-bold py-4">{movie?.original_title}</h1>
+                            <p>
+                                <span className="font-semibold text-green-400">75% Match </span>- Movie
+                            </p>
+                        </div>
+                        <div className="px-5 md:mx-14 flex flex-col md:flex-row gap-4 pt-5 pb-10">
+                            <div className="basis-5/6">
+                                <p className="text-lg">{movie?.overview}</p>
+                            </div>
+                            <div className="w-max basis-2/6">
+                                <ul className="flex flex-col gap-1 ">
+                                    <li>
+                                        <span className="text-neutral-500">Release Date:</span>{" "}
+                                        {movie?.release_date}
+                                    </li>
+                                    <li>
+                                        <span className="text-neutral-500">Vote Average:</span>{" "}
+                                        {movie?.vote_average}
+                                    </li>
+                                    <li>
+                                        <span className="text-neutral-500">Language:</span>{" "}
+                                        {movie?.original_language.toUpperCase()}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

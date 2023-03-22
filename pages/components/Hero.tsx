@@ -29,8 +29,8 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
     return (
         <>
             <div
-                className="flex items-center h-[75dvh] relative bg-gradient-to-t from-neutral-900 to-transparent/20
-            ">
+                className={`flex items-center h-[82dvh] md:h-[75dvh] relative bg-gradient-to-t from-neutral-900 to-transparent/20 
+            `}>
                 <div className="h-full w-full absolute -z-10 object-cover brightness-75">
                     <Image
                         className="h-full w-full object-cover "
@@ -39,8 +39,8 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
                         fill
                     />
                 </div>
-                <div className="px-20 max-w-[1200px]">
-                    <h1 className="text-6xl font-bold">{movie?.original_title}</h1>
+                <div className="px-5 md:px-20 max-w-[1200px]">
+                    <h1 className="text-lg md:text-6xl font-bold">{movie?.original_title}</h1>
                     <div className="text-2xl mt-4 inline-flex items-center gap-4">
                         <div className="flex flex-col  items-center px-3 py-1 text-md bg-red-800 rounded leading-none font-bold">
                             <span className="uppercase">Top</span>
@@ -48,8 +48,8 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
                         </div>
                         <span className="font-medium">6# By Series Today</span>
                     </div>
-                    <p className="my-8 text-2xl">{movie?.overview}</p>
-                    <div className="inline-flex gap-3 text-xl">
+                    <p className="my-8 md:text-2xl">{movie?.overview}</p>
+                    <div className="inline-flex gap-3 md:text-xl">
                         <button className="button-primary">
                             <HiPlay size={30} />
                             Play
