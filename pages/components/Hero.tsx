@@ -14,10 +14,8 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
     const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
     const generateRandomMovie = () => {
-        // const randomMovie = movies[Math.floor(Math.random() * movies.length)];
-        const selectedMovie = movies[3];
-        // return randomMovie;
-        return selectedMovie;
+        const randomMovie = movies[Math.floor(Math.random() * movies.length)];
+        return randomMovie;
     };
 
     const handleModalState = () => {
@@ -37,7 +35,7 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
                     <Image
                         className="h-full w-full object-cover "
                         src={`${imageBaseUrl}${movie?.backdrop_path}`}
-                        alt={movie?.original_title as string}
+                        alt={`${movie?.original_title}`}
                         fill
                     />
                 </div>

@@ -63,7 +63,7 @@ const Banner: React.FC<BannerProps> = ({ title, movies }) => {
                     </button>
                 </div>
                 <div
-                    className="flex gap-4 whitespace-nowrap overflow-auto relative scrollbar-hide touch-pan-x"
+                    className="flex gap-4 overflow-auto relative scrollbar-hide touch-pan-x"
                     ref={containerRef}>
                     {movies.map((movie) => {
                         return (

@@ -37,8 +37,8 @@ const Navbar: NextPage = () => {
                     <Image src="/logo.png" alt="netflix logo" height={80} width={80} />
                 </div>
                 <ul
-                    className={`absolute top-20 right-4 md:right-20 bg-black  p-4  xl:border-none  text-right overflow-hidden xl:static xl:hidden   duration-300 ${
-                        menuIsActive ? "h-[180%] md:h-[290%] p-4" : "p-0 h-[0%]"
+                    className={`absolute top-20 right-4 md:right-20 bg-black  xl:border-none  text-right overflow-hidden xl:static xl:hidden   duration-300 ${
+                        menuIsActive ? "h-[180%] md:h-[290%] p-4 " : "p-0 h-[0%]"
                     }`}>
                     <li className="border-b xl:border-b-0 border-b-neutral-500 py-1">Home</li>
                     <li className="border-b xl:border-b-0 border-b-neutral-500 py-1">Series</li>
