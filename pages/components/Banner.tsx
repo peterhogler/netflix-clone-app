@@ -57,20 +57,20 @@ const Banner: React.FC<BannerProps> = ({ title, movies }) => {
                         <HiChevronLeft size={50} />
                     </button>
                 </div>
-                <div className="h-full grid place-items-center bg-gradient-to-r from-transparent to-black/75 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">
+                <div className="h-full grid place-items-center bg-gradient-to-r from-transparent to-black/75 absolute top-1/2 transform -translate-y-1/2 right-0 z-10 py-2">
                     <button onClick={handleNextButton}>
                         <HiChevronRight size={50} />
                     </button>
                 </div>
                 <div
-                    className="flex gap-4 overflow-auto relative scrollbar-hide touch-pan-x"
+                    className="flex gap-4 overflow-auto relative scrollbar-hide touch-pan-x py-2"
                     ref={containerRef}>
                     {movies.map((movie) => {
                         return (
                             <>
                                 <Image
                                     key={movie.id}
-                                    className="w-max h-[250px] md:h-[350px] rounded cursor-pointer"
+                                    className="w-max h-[250px] md:h-[350px] rounded cursor-pointer duration-200 border border-transparent  hover:border-white shadow"
                                     src={`${imageBaseUrl}${movie?.poster_path}`}
                                     alt={movie?.original_title as string}
                                     width={400}
