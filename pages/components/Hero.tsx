@@ -2,7 +2,7 @@ import { Movie } from "@/typings";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiPlay, HiOutlineInformationCircle } from "react-icons/hi";
-import HeroModal from "./HeroModal";
+import DetailsModal from "./DetailsModal";
 
 interface HeroProps {
     movies: Movie[];
@@ -14,8 +14,10 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
     const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
     const generateRandomMovie = () => {
-        const randomMovie = movies[Math.floor(Math.random() * movies.length)];
-        return randomMovie;
+        // const randomMovie = movies[Math.floor(Math.random() * movies.length)];
+        const selectedMovie = movies[3];
+        // return randomMovie;
+        return selectedMovie;
     };
 
     const handleModalState = () => {
@@ -29,7 +31,7 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
     return (
         <>
             <div
-                className={`flex items-center h-[82dvh] md:h-[75dvh] relative bg-gradient-to-t from-neutral-900 to-transparent/20 
+                className={`flex items-center h-[84dvh] md:h-[75dvh] relative bg-gradient-to-t from-neutral-900 to-transparent/20 
             `}>
                 <div className="h-full w-full absolute -z-10 object-cover brightness-75">
                     <Image
@@ -46,11 +48,11 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
                             <span className="uppercase">Top</span>
                             <span>10</span>
                         </div>
-                        <span className="font-medium">6# By Series Today</span>
+                        <span className="font-medium"># 3 By Movies Today</span>
                     </div>
                     <p className="my-8 md:text-2xl">{movie?.overview}</p>
                     <div className="inline-flex gap-3 md:text-xl">
-                        <button className="button-primary">
+                        <button className="button-primary" onClick={handleModalState}>
                             <HiPlay size={30} />
                             Play
                         </button>
@@ -61,7 +63,7 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
                     </div>
                 </div>
             </div>
-            {showModal ? <HeroModal movie={movie} onModalClose={handleModalState} /> : null}
+            {showModal ? <DetailsModal movie={movie} onModalClose={handleModalState} /> : null}
         </>
     );
 };

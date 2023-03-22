@@ -59,9 +59,9 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
 
     return (
         <div>
-            <div className="z-20 grid place-items-start fixed inset-0 bg-black/50">
-                <div className="h-[100dvh] md:w-[60vw] m-auto rounded overflow-auto ">
-                    <div className="h-[65%] relative md:mt-14">
+            <div className="z-20 grid place-items-start fixed inset-0">
+                <div className="h-full xl:w-[60dvw] m-auto scrollbar-hide">
+                    <div className="h-[100dvh] lg:h-[65dvh] relative lg:mt-14">
                         <ReactPlayer
                             url={videoUrl}
                             width="100%"
@@ -102,16 +102,18 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                             </button>
                         </div>
                     </div>
-                    <div className="h-full md:h-max bg-gradient-to-b from-black to-neutral-900">
-                        <div className="px-5 md:mx-14">
-                            <h1 className="text-4xl font-bold py-4">{movie?.original_title}</h1>
+                    <div className="md:h-max bg-gradient-to-b from-black to-neutral-900">
+                        <div className="px-5 md:px-14">
+                            <h1 className="text-2xl md:text-4xl font-bold py-4">
+                                {movie?.original_title}
+                            </h1>
                             <p>
                                 <span className="font-semibold text-green-400">75% Match </span>- Movie
                             </p>
                         </div>
-                        <div className="px-5 md:mx-14 flex flex-col md:flex-row gap-4 pt-5 pb-10">
-                            <div className="basis-5/6">
-                                <p className="text-lg">{movie?.overview}</p>
+                        <div className="px-5 md:px-14 flex flex-col lg:flex-row gap-4 pt-5 pb-10">
+                            <div className="basis-4/6">
+                                <p className="md:text-lg">{movie?.overview}</p>
                             </div>
                             <div className="w-max basis-2/6">
                                 <ul className="flex flex-col gap-1 ">

@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Movie } from "@/typings";
 import Image from "next/image";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import DetailsModal from "./DetailsModal";
 
 interface BannerProps {
     title: string;
@@ -9,6 +10,9 @@ interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({ title, movies }) => {
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
+
     const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,6 +38,11 @@ const Banner: React.FC<BannerProps> = ({ title, movies }) => {
         }
     };
 
+    const handleModalState = (movieId: number) => {
+        setSelectedMovieId(movieId);
+        setShowModal(true);
+    };
+
     return (
         <div className="px-5 md:px-20 mb-7 md:mb-14">
             <div className="group flex items-center gap-8 text-xl md:text-4xl font-bold py-5">
@@ -43,30 +52,37 @@ const Banner: React.FC<BannerProps> = ({ title, movies }) => {
                 </span>
             </div>
             <div className="relative">
-                <div className="h-full grid place-items-center bg-gradient-to-l from-transparent to-black/50 absolute top-1/2 transform -translate-y-1/2 left-0 z-10 ">
+                <div className="h-full grid place-items-center bg-gradient-to-l from-transparent to-black/75 absolute top-1/2 transform -translate-y-1/2 left-0 z-10 ">
                     <button onClick={handlePrevButton}>
                         <HiChevronLeft size={50} />
                     </button>
                 </div>
-                <div className="h-full grid place-items-center bg-gradient-to-r from-transparent to-black/50 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">
+                <div className="h-full grid place-items-center bg-gradient-to-r from-transparent to-black/75 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">
                     <button onClick={handleNextButton}>
                         <HiChevronRight size={50} />
                     </button>
                 </div>
                 <div
-                    className="flex gap-4 whitespace-nowrap overflow-auto relative scrollbar-hide"
+                    className="flex gap-4 whitespace-nowrap overflow-auto relative scrollbar-hide touch-pan-x"
                     ref={containerRef}>
                     {movies.map((movie) => {
                         return (
                             <>
                                 <Image
                                     key={movie.id}
-                                    className="w-max h-[250px] md:h-[350px] rounded"
+                                    className="w-max h-[250px] md:h-[350px] rounded cursor-pointer"
                                     src={`${imageBaseUrl}${movie?.poster_path}`}
                                     alt={movie?.original_title as string}
                                     width={400}
                                     height={400}
+                                    onClick={() => handleModalState(movie.id)}
                                 />
+                                {showModal && selectedMovieId === movie.id ? (
+                                    <DetailsModal
+                                        movie={movie}
+                                        onModalClose={() => setShowModal(false)}
+                                    />
+                                ) : null}
                             </>
                         );
                     })}

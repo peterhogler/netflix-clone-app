@@ -14,6 +14,7 @@ interface DashboardProps {
     topRated: Movie[];
     actionMovies: Movie[];
     documentaries: Movie[];
+    animated: Movie[];
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
@@ -22,6 +23,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     topRated,
     actionMovies,
     documentaries,
+    animated,
 }) => {
     return (
         <main className={space_grotesk.className} id="main">
@@ -31,6 +33,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             <Banner title="Top Rated" movies={topRated} />
             <Banner title="Action" movies={actionMovies} />
             <Banner title="Documentary" movies={documentaries} />
+            <Banner title="Animated" movies={animated} />
             <Footer />
         </main>
     );
@@ -39,13 +42,15 @@ const Dashboard: React.FC<DashboardProps> = ({
 export default Dashboard;
 
 export const getServerSideProps = async () => {
-    const [netflixOriginals, trendingNow, topRated, actionMovies, documentaries] = await Promise.all([
-        fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
-        fetch(requests.fetchTrending).then((res) => res.json()),
-        fetch(requests.fetchTopRated).then((res) => res.json()),
-        fetch(requests.fetchActionMovies).then((res) => res.json()),
-        fetch(requests.fetchDocumentaries).then((res) => res.json()),
-    ]);
+    const [netflixOriginals, trendingNow, topRated, actionMovies, documentaries, animated] =
+        await Promise.all([
+            fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
+            fetch(requests.fetchTrending).then((res) => res.json()),
+            fetch(requests.fetchTopRated).then((res) => res.json()),
+            fetch(requests.fetchActionMovies).then((res) => res.json()),
+            fetch(requests.fetchDocumentaries).then((res) => res.json()),
+            fetch(requests.fetchAnimationMovies).then((res) => res.json()),
+        ]);
 
     return {
         props: {
@@ -54,6 +59,7 @@ export const getServerSideProps = async () => {
             topRated: topRated.results,
             actionMovies: actionMovies.results,
             documentaries: documentaries.results,
+            animated: animated.results,
         },
     };
 };
