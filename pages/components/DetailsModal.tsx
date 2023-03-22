@@ -9,6 +9,7 @@ import {
     HiPlus,
     HiX,
 } from "react-icons/hi";
+import Image from "next/image";
 
 interface HeroModalProps {
     movie: Movie | null;
@@ -20,6 +21,8 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
     const [mediaPlayingState, setMediaPlayingState] = useState<boolean>(true);
     const [mediaVolumeMuted, setMediaVolumeMuted] = useState<boolean>(true);
 
+    const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
+
     useEffect(() => {
         const getTrailerUrl = async () => {
             try {
@@ -29,7 +32,8 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                     }&language=en-US`
                 );
                 const data = await response.json();
-                const movieTrailer = data.results.filter((video: any) => video.type === "Trailer")[0];
+                const movieTrailer =
+                    data.results.filter((video: any) => video.type === "Trailer")[0] ?? "null";
                 const movieTrailerUrl = `https://www.youtube.com/watch?v=${movieTrailer.key}`;
                 if (movieTrailer) setVideoUrl(movieTrailerUrl);
             } catch (error) {
@@ -58,16 +62,26 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
 
     return (
         <div className="z-20 grid place-items-start fixed inset-0 bg-black/50">
-            <div className="h-full xl:w-[60dvw] m-auto scrollbar-hide">
-                <div className="h-[100dvh] lg:h-[65dvh] relative xl:mt-14">
-                    <ReactPlayer
-                        url={videoUrl}
-                        width="100%"
-                        height="100%"
-                        playing={mediaPlayingState}
-                        muted={mediaVolumeMuted}
-                    />
-                    <div className="absolute top-5 right-5">
+            <div className="h-full xl:w-[60dvw] m-auto overflow-auto scrollbar-hide">
+                <div className="h-[70%] lg:h-[65dvh] relative xl:mt-14">
+                    {videoUrl !== "https://www.youtube.com/watch?v=undefined" ? (
+                        <ReactPlayer
+                            url={videoUrl}
+                            width="100%"
+                            height="100%"
+                            playing={mediaPlayingState}
+                            muted={mediaVolumeMuted}
+                        />
+                    ) : (
+                        <Image
+                            src={imageBaseUrl + movie?.backdrop_path}
+                            height="300"
+                            width={300}
+                            alt={movie?.original_title || "Poster"}
+                        />
+                    )}
+
+                    <div className="absolute top-7 right-3 md:right-10">
                         <button
                             className="grid place-items-center bg-neutral-900 self-stretch h-10 w-10 rounded-full "
                             onClick={onModalClose}>
@@ -88,7 +102,7 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                             </button>
                         </div>
                     </div>
-                    <div className="absolute right-5 md:right-14 bottom-10">
+                    <div className="absolute right-5 md:right-14 bottom-11">
                         <button
                             className="grid place-items-center bg-neutral-900 self-stretch h-10 w-10 rounded-full ring-2 ring-neutral-400 text-neutral-400"
                             onClick={handleMediaMute}>

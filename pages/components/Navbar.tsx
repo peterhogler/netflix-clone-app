@@ -74,7 +74,9 @@ const Navbar: NextPage = () => {
 
                     <div className="hidden md:inline-flex items-center gap-4">
                         <HiOutlineBell />
-                        <span className="text-base">Peter's Netflix</span>
+                        <span className="text-base">
+                            Peter's <span className="text-red-600">Netflix</span>
+                        </span>
                         <div className="hidden h-full  md:inline-flex items-center gap-1">
                             <Image
                                 className="rounded"
