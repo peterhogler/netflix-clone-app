@@ -6,10 +6,10 @@ import DetailsModal from "./DetailsModal";
 
 interface BannerProps {
     title: string;
-    movies: Movie[];
+    movies: Movie[] | [];
 }
 
-const Banner: React.FC<BannerProps> = ({ title, movies }) => {
+const Banner: React.FC<BannerProps> = ({ title, movies = [] }) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
 
