@@ -6,8 +6,8 @@ import requests from "@/requests/requests";
 import { Movie } from "@/typings";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
-import { useAppSelector } from "./redux/hooks";
-import { likedMoviesFromReducer } from "./redux/likedMoviesReducer";
+import { useAppSelector } from "../redux/hooks";
+import { likedMoviesFromReducer } from "../redux/likedMoviesReducer";
 
 const space_grotesk = Space_Grotesk({ subsets: ["latin"] });
 

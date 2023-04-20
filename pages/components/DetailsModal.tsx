@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { Movie } from "@/typings";
 import ReactPlayer from "react-player";
 import screenfull from "screenfull";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { addMovie } from "../redux/likedMoviesReducer";
-import { likedMoviesFromReducer } from "../redux/likedMoviesReducer";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addMovie } from "../../redux/likedMoviesReducer";
+import { likedMoviesFromReducer } from "../../redux/likedMoviesReducer";
 import {
     HiOutlineArrowsExpand,
     HiOutlineThumbUp,
