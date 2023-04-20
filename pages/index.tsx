@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -5,6 +6,8 @@ import requests from "@/requests/requests";
 import { Movie } from "@/typings";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { likedMoviesFromReducer } from "./redux/likedMoviesReducer";
 
 const space_grotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -25,10 +28,17 @@ const Dashboard: React.FC<DashboardProps> = ({
     documentaries,
     animated,
 }) => {
+    const dispatch = useAppDispatch();
+    const likedMovies = useAppSelector(likedMoviesFromReducer);
+
+    useEffect(() => {
+        localStorage.setItem("likedMovies", JSON.stringify(likedMovies));
+    }, [likedMovies]);
     return (
         <main className={space_grotesk.className} id="main">
             <Navbar />
             <Hero movies={netflixOriginals} />
+            {likedMovies.length > 0 && <Banner title="Liked Movies" movies={likedMovies} />}
             <Banner title="Trending Now" movies={trendingNow} />
             <Banner title="Top Rated" movies={topRated} />
             <Banner title="Action" movies={actionMovies} />

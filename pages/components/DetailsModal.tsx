@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { Movie } from "@/typings";
 import ReactPlayer from "react-player";
 import screenfull from "screenfull";
-
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { addMovie } from "../redux/likedMoviesReducer";
+import { likedMoviesFromReducer } from "../redux/likedMoviesReducer";
 import {
     HiOutlineArrowsExpand,
     HiOutlineThumbUp,
@@ -10,6 +12,7 @@ import {
     HiOutlineVolumeUp,
     HiPlay,
     HiPlus,
+    HiThumbUp,
     HiX,
 } from "react-icons/hi";
 import Image from "next/image";
@@ -25,6 +28,11 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
     const [mediaVolumeMuted, setMediaVolumeMuted] = useState<boolean>(true);
 
     const mediaPlayerRef = useRef<HTMLDivElement | null>(null);
+
+    const dispatch = useAppDispatch();
+
+    const likedMovies = useAppSelector(likedMoviesFromReducer);
+    const movieExistInLikedMovies = likedMovies.find((likedMovie) => likedMovie.id === movie?.id);
 
     const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
@@ -71,6 +79,12 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
         }
     };
 
+    const handleAddButton = () => {
+        if (movie) {
+            dispatch(addMovie(movie));
+        }
+    };
+
     return (
         <div className="z-20 grid place-items-start fixed inset-0 bg-black/50">
             <div className="h-full xl:w-[60dvw] m-auto overflow-auto scrollbar-hide">
@@ -106,10 +120,11 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                         </button>
                         <div className="flex gap-3">
                             <button className="grid place-items-center bg-neutral-800 self-stretch h-10 w-10 rounded-full ring-2 ring-neutral-300">
-                                <HiPlus size={27} />
-                            </button>
-                            <button className="grid place-items-center bg-neutral-800 self-stretch h-10 w-10 rounded-full ring-2 ring-neutral-300">
-                                <HiOutlineThumbUp size={27} />
+                                {movieExistInLikedMovies ? (
+                                    <HiThumbUp size={28} onClick={handleAddButton} />
+                                ) : (
+                                    <HiOutlineThumbUp size={27} onClick={handleAddButton} />
+                                )}
                             </button>
                         </div>
                     </div>

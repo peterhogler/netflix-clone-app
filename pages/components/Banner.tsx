@@ -76,6 +76,7 @@ const Banner: React.FC<BannerProps> = ({ title, movies = [] }) => {
                                     width={400}
                                     height={400}
                                     onClick={() => handleModalState(movie.id)}
+                                    loading="lazy"
                                 />
                                 {showModal && selectedMovieId === movie.id ? (
                                     <DetailsModal
