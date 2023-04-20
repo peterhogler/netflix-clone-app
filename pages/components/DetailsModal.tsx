@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Movie } from "@/typings";
 import ReactPlayer from "react-player";
+import screenfull from "screenfull";
+
 import {
+    HiOutlineArrowsExpand,
     HiOutlineThumbUp,
     HiOutlineVolumeOff,
     HiOutlineVolumeUp,
@@ -20,6 +23,8 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
     const [videoUrl, setVideoUrl] = useState<string>("");
     const [mediaPlayingState, setMediaPlayingState] = useState<boolean>(true);
     const [mediaVolumeMuted, setMediaVolumeMuted] = useState<boolean>(true);
+
+    const mediaPlayerRef = useRef<HTMLDivElement | null>(null);
 
     const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
@@ -60,10 +65,16 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
         setMediaVolumeMuted(!mediaVolumeMuted);
     };
 
+    const handleFullScreen = () => {
+        if (mediaPlayerRef.current) {
+            screenfull.toggle(mediaPlayerRef.current);
+        }
+    };
+
     return (
         <div className="z-20 grid place-items-start fixed inset-0 bg-black/50">
             <div className="h-full xl:w-[60dvw] m-auto overflow-auto scrollbar-hide">
-                <div className="h-[70%] lg:h-[65dvh] relative xl:mt-14">
+                <div className="h-[70%] lg:h-[65dvh] relative xl:mt-14" ref={mediaPlayerRef}>
                     {videoUrl !== "https://www.youtube.com/watch?v=undefined" ? (
                         <ReactPlayer
                             url={videoUrl}
@@ -102,7 +113,7 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                             </button>
                         </div>
                     </div>
-                    <div className="absolute right-5 md:right-14 bottom-11">
+                    <div className="absolute inline-flex gap-4  right-5 md:right-14 bottom-11">
                         <button
                             className="grid place-items-center bg-neutral-900 self-stretch h-10 w-10 rounded-full ring-2 ring-neutral-400 text-neutral-400"
                             onClick={handleMediaMute}>
@@ -111,6 +122,11 @@ const HeroModal: React.FC<HeroModalProps> = ({ movie, onModalClose }) => {
                             ) : (
                                 <HiOutlineVolumeUp size={27} />
                             )}
+                        </button>
+                        <button
+                            className="grid place-items-center bg-neutral-900 self-stretch h-10 w-10 rounded-full ring-2 ring-neutral-400 text-neutral-400"
+                            onClick={handleFullScreen}>
+                            <HiOutlineArrowsExpand size={27} />
                         </button>
                     </div>
                 </div>
